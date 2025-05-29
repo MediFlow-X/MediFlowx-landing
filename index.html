@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediFlow - Intuicyjne Zarządzanie Transportem Medycznym</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚕️</text></svg>">
+
+    <style>
+        /* Ustawienie domyślnej czcionki */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Płynne przewijanie */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Style dla przycisku mobilnego menu */
+        #menu-toggle:checked+#menu {
+            display: block;
+        }
+    </style>
+    <script>
+        // Konfiguracja Tailwind (opcjonalnie, jeśli potrzebujesz niestandardowych ustawień)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Możesz dodać niestandardowe kolory, np. dokładny odcień niebieskiego z logo
+                        // 'mediflow-blue': '#TwojHexKoloru',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-white text-gray-800 antialiased">
+
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center">
+                <img src="logo.png" alt="Logo MediFlow" class="h-8 w-auto mr-2"
+                    onerror="this.onerror=null; this.src='https://placehold.co/150x40/e2e8f0/334155?text=MediFlow+Logo';">
+            </a>
+
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#funkcje" class="text-gray-600 hover:text-blue-600 transition duration-300">Funkcje</a>
+                <a href="#korzysci" class="text-gray-600 hover:text-blue-600 transition duration-300">Korzyści</a>
+                <a href="#o-autorze" class="text-gray-600 hover:text-blue-600 transition duration-300">O Autorze</a>
+                <a href="#kontakt" class="text-gray-600 hover:text-blue-600 transition duration-300">Kontakt</a>
+                <a href="#demo"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 shadow">
+                    Umów Demo
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <label for="menu-toggle" class="cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </label>
+            </div>
+        </div>
+
+        <input type="checkbox" class="hidden" id="menu-toggle" />
+        <div id="menu" class="hidden md:hidden bg-white py-2 px-6 shadow-md">
+            <a href="#funkcje" class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">Funkcje</a>
+            <a href="#korzysci"
+                class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">Korzyści</a>
+            <a href="#o-autorze" class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">O
+                Autorze</a>
+            <a href="#kontakt" class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">Kontakt</a>
+            <a href="#demo"
+                class="block mt-2 w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 shadow">
+                Umów Demo
+            </a>
+        </div>
+    </nav>
+
+    <header id="demo" class="bg-gray-50 py-16 md:py-24">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+                MediFlow: <span class="text-blue-600">Intuicyjne</span> zarządzanie transportem medycznym.
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                Usprawnij koordynację transportów w Twoim szpitalu. Oszczędzaj czas personelu i zyskaj pełną kontrolę
+                dzięki nowoczesnej aplikacji SaaS.
+            </p>
+            <a href="#kontakt"
+                class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md inline-block">
+                Umów Bezpłatne Demo
+            </a>
+        </div>
+        <div class="container mx-auto px-6 mt-12 md:mt-16">
+            <img src="./img/app.png" alt="Zrzut ekranu aplikacji MediFlow pokazujący listę transportów"
+                class="rounded-lg shadow-xl mx-auto max-w-4xl w-full"
+                onerror="this.onerror=null; this.src='https://placehold.co/1000x600/e2e8f0/334155?text=Podgląd+Aplikacji+MediFlow';">
+        </div>
+    </header>
+
+    <section class="py-16 md:py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+                Masz dość chaosu w zleceniach transportu?
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Papierowe zlecenia, ciągłe telefony między oddziałami a zespołem transportowym, ryzyko błędów? MediFlow
+                zastępuje przestarzałe metody jednym, przejrzystym systemem online.
+            </p>
+        </div>
+    </section>
+
+    <section id="funkcje" class="bg-gray-50 py-16 md:py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 text-center mb-12">
+                Odkryj prostotę MediFlow
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div
+                        class="mb-4 inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Łatwe Planowanie</h3>
+                    <p class="text-gray-600">
+                        Oddziały szpitalne szybko i wygodnie zgłaszają zapotrzebowanie na transport pacjenta w systemie.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div
+                        class="mb-4 inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.125-.504 1.125-1.125V14.25m-17.25 4.5v-1.875a3.375 3.375 0 0 1 3.375-3.375h9.75a3.375 3.375 0 0 1 3.375 3.375v1.875M10.5 6h3M12 3v3M3.75 6H7.5m11.25 0h3.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Efektywne Zarządzanie</h3>
+                    <p class="text-gray-600">
+                        Zespół transportowy ma pełny przegląd zleceń, może łatwo rozpisywać zadania i optymalizować
+                        trasy.
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                    <div
+                        class="mb-4 inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Automatyczna Dokumentacja</h3>
+                    <p class="text-gray-600">
+                        System generuje przejrzyste karty realizacji transportu, eliminując papierkową robotę i
+                        redukując błędy.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="korzysci" class="py-16 md:py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 text-center mb-12">
+                Dlaczego MediFlow to najlepszy wybór dla Twojego szpitala?
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1">Oszczędność Czasu</h3>
+                        <p class="text-gray-600">Znacząco skraca czas zlecania, koordynacji i dokumentowania
+                            transportów. Personel może skupić się na pacjentach.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1">Stworzone przez Medyka dla Medyków</h3>
+                        <p class="text-gray-600">Zaprojektowane przez praktykującego ratownika medycznego, rozumiejącego
+                            realia pracy w szpitalu.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1">Intuicyjność i Prostota</h3>
+                        <p class="text-gray-600">Czysty, minimalistyczny interfejs ułatwia wdrożenie i codzienne
+                            użytkowanie aplikacji.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1">Centralizacja i Kontrola</h3>
+                        <p class="text-gray-600">Wszystkie informacje o transportach w jednym miejscu, dostępne dla
+                            uprawnionych osób. Pełna transparentność procesu.</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-4">
+                    <div class="flex-shrink-0 mt-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6 text-blue-600">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-1">Redukcja Błędów</h3>
+                        <p class="text-gray-600">Cyfrowy obieg informacji minimalizuje ryzyko pomyłek związanych z
+                            ręcznym przepisywaniem danych.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="o-autorze" class="bg-gray-50 py-16 md:py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
+                Poznaj twórcę MediFlow
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                Cześć! Nazywam się Patryk, jestem ratownikiem medycznym oraz programistą. Pomysł na MediFlow zrodził się
+                z mojej codziennej pracy i obserwacji, jak wiele czasu i wysiłku można zaoszczędzić, usprawniając proces
+                zarządzania transportem medycznym. Stworzyłem tę aplikację z pasji do technologii i chęci realnego
+                ułatwienia pracy personelowi medycznemu, stawiając na prostotę, niezawodność i nowoczesny design.
+            </p>
+        </div>
+    </section>
+
+    <section id="kontakt" class="py-16 md:py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
+                Dostępne w wygodnym modelu SaaS
+            </h2>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
+                MediFlow oferowane jest jako usługa w chmurze (Software as a Service). Oznacza to brak kosztownych
+                inwestycji w infrastrukturę, stały dostęp do najnowszej wersji aplikacji i wsparcie techniczne.
+                Skontaktuj się z nami, aby dobrać plan idealny dla Twojej placówki.
+            </p>
+            <a href="mailto:p.karpinski95@wp.pl?subject=Zapytanie%20o%20ofertę%20MediFlow"
+                class="text-blue-600 border border-blue-600 hover:bg-blue-50 font-medium py-3 px-8 rounded-lg text-lg transition duration-300 inline-block">
+                Zapytaj o Ofertę
+            </a>
+        </div>
+    </section>
+
+    <section class="bg-blue-600 text-white py-16 md:py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-semibold mb-4">
+                Gotowy usprawnić transport medyczny w Twoim szpitalu?
+            </h2>
+            <p class="text-lg text-blue-100 mb-8 max-w-3xl mx-auto">
+                Zobacz na własne oczy, jak MediFlow może zrewolucjonizować koordynację transportów. Umów się na
+                niezobowiązujące, bezpłatne demo aplikacji.
+            </p>
+            <a href="#kontakt"
+                class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md inline-block">
+                Umów Bezpłatne Demo
+            </a>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-gray-400 py-8">
+        <div class="container mx-auto px-6 text-center md:flex md:justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                © <span id="current-year"></span> MediFlow. Wszelkie prawa zastrzeżone.
+            </div>
+            <div class="flex justify-center space-x-6">
+                <a href="/polityka-prywatnosci" class="hover:text-white transition duration-300">Polityka
+                    Prywatności</a>
+                <a href="mailto:p.karpinski95@wp.pl"
+                    class="hover:text-white transition duration-300">Kontakt</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Ustawienie aktualnego roku w stopce
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Prosty skrypt do zamykania menu mobilnego po kliknięciu linku
+        const menuLinks = document.querySelectorAll('#menu a');
+        const menuToggle = document.getElementById('menu-toggle');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (menuToggle.checked) {
+                    menuToggle.checked = false;
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
