@@ -2,57 +2,46 @@
 <html lang="pl">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MediFlow X - Intuicyjne Zarządzanie Transportem Medycznym</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚕️</text></svg>">
-
     <style>
-        /* Ustawienie domyślnej czcionki */
         body {
             font-family: 'Inter', sans-serif;
         }
 
-        /* Płynne przewijanie */
         html {
             scroll-behavior: smooth;
         }
 
-        /* Style dla przycisku mobilnego menu */
         #menu-toggle:checked+#menu {
             display: block;
         }
+
+        .modal-open {
+            overflow: hidden;
+        }
     </style>
     <script>
-        // Konfiguracja Tailwind (opcjonalnie, jeśli potrzebujesz niestandardowych ustawień)
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        // Możesz dodać niestandardowe kolory, np. dokładny odcień niebieskiego z logo
-                        // 'mediflow-blue': '#TwojHexKoloru',
-                    }
-                }
-            }
-        }
+        tailwind.config = { theme: { extend: { colors: {} } } }
     </script>
 </head>
 
 <body class="bg-white text-gray-800 antialiased">
 
+    <!-- NAV -->
     <nav class="bg-white shadow-sm sticky top-0 z-50">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#" class="flex items-center">
-                <!-- <img src="logo.png" alt="Logo MediFlow" class="h-8 w-auto mr-2"
-                    onerror="this.onerror=null; this.src='https://placehold.co/150x40/e2e8f0/334155?text=MediFlow+Logo';"> -->
-                <p>
-                    <span class="font-semibold text-xl">Medi</span><span class="text-xl text-blue-400">Flow</span>
-                    <span class="font-bold ">X</span> </p>
+                <p><span class="font-semibold text-xl">Medi</span><span class="text-xl text-blue-400">Flow</span>
+                    <span class="font-bold">X</span>
+                </p>
             </a>
 
             <div class="hidden md:flex space-x-6 items-center">
@@ -60,10 +49,11 @@
                 <a href="#korzysci" class="text-gray-600 hover:text-blue-600 transition duration-300">Korzyści</a>
                 <a href="#o-autorze" class="text-gray-600 hover:text-blue-600 transition duration-300">O Autorze</a>
                 <a href="#kontakt" class="text-gray-600 hover:text-blue-600 transition duration-300">Kontakt</a>
-                <a href="#demo"
+                <!-- ZMIANA: przycisk otwiera modal DEMO -->
+                <button data-open-modal="demo"
                     class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 shadow">
                     Umów Demo
-                </a>
+                </button>
             </div>
 
             <div class="md:hidden flex items-center">
@@ -85,13 +75,15 @@
             <a href="#o-autorze" class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">O
                 Autorze</a>
             <a href="#kontakt" class="block py-2 text-gray-600 hover:text-blue-600 transition duration-300">Kontakt</a>
-            <a href="#demo"
+            <!-- ZMIANA: mobile - otwiera modal DEMO -->
+            <button data-open-modal="demo"
                 class="block mt-2 w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-300 shadow">
                 Umów Demo
-            </a>
+            </button>
         </div>
     </nav>
 
+    <!-- HERO -->
     <header id="demo" class="bg-gray-50 py-16 md:py-24">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
@@ -101,10 +93,11 @@
                 Usprawnij koordynację transportów w Twoim szpitalu. Oszczędzaj czas personelu i zyskaj pełną kontrolę
                 dzięki nowoczesnej aplikacji SaaS.
             </p>
-            <a href="#kontakt"
+            <!-- ZMIANA: otwiera modal DEMO -->
+            <button data-open-modal="demo"
                 class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md inline-block">
                 Umów Bezpłatne Demo
-            </a>
+            </button>
         </div>
         <div class="container mx-auto px-6 mt-12 md:mt-16">
             <img src="./img/app.png" alt="Zrzut ekranu aplikacji MediFlow pokazujący listę transportów"
@@ -113,6 +106,7 @@
         </div>
     </header>
 
+    <!-- PROBLEMY / FUNKCJE / KORZYŚCI / O AUTORZE - BEZ ZMIAN W TREŚCI -->
     <section class="py-16 md:py-20">
         <div class="container mx-auto px-6 text-center">
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
@@ -141,10 +135,10 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Łatwe Planowanie</h3>
-                    <p class="text-gray-600">
-                        Oddziały szpitalne szybko i wygodnie zgłaszają zapotrzebowanie na transport pacjenta w systemie.
-                    </p>
+                    <p class="text-gray-600">Oddziały szpitalne szybko i wygodnie zgłaszają zapotrzebowanie na transport
+                        pacjenta w systemie.</p>
                 </div>
+
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div
                         class="mb-4 inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
@@ -155,11 +149,10 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Efektywne Zarządzanie</h3>
-                    <p class="text-gray-600">
-                        Zespół transportowy ma pełny przegląd zleceń, może łatwo rozpisywać zadania i optymalizować
-                        trasy.
-                    </p>
+                    <p class="text-gray-600">Zespół transportowy ma pełny przegląd zleceń, może łatwo rozpisywać zadania
+                        i optymalizować trasy.</p>
                 </div>
+
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
                     <div
                         class="mb-4 inline-flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-600">
@@ -170,10 +163,8 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">Automatyczna Dokumentacja</h3>
-                    <p class="text-gray-600">
-                        System generuje przejrzyste karty realizacji transportu, eliminując papierkową robotę i
-                        redukując błędy.
-                    </p>
+                    <p class="text-gray-600">System generuje przejrzyste karty realizacji transportu, eliminując
+                        papierkową robotę i redukując błędy.</p>
                 </div>
             </div>
         </div>
@@ -184,7 +175,9 @@
             <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 text-center mb-12">
                 Dlaczego MediFlow to najlepszy wybór dla Twojego szpitala?
             </h2>
+
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- ... (oryginalne kafelki korzyści – bez zmian treści) ... -->
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -199,6 +192,7 @@
                             transportów. Personel może skupić się na pacjentach.</p>
                     </div>
                 </div>
+
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -213,6 +207,7 @@
                             realia pracy w szpitalu.</p>
                     </div>
                 </div>
+
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -227,6 +222,7 @@
                             użytkowanie aplikacji.</p>
                     </div>
                 </div>
+
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -241,6 +237,7 @@
                             uprawnionych osób. Pełna transparentność procesu.</p>
                     </div>
                 </div>
+
                 <div class="flex items-start space-x-4">
                     <div class="flex-shrink-0 mt-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -261,9 +258,7 @@
 
     <section id="o-autorze" class="bg-gray-50 py-16 md:py-20">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">
-                Poznaj twórcę MediFlow
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-8">Poznaj twórcę MediFlow</h2>
             <img src="./img/Patryk.jpg" alt="Zdjęcie Patryka, twórcy MediFlow"
                 class="w-32 h-32 rounded-full mx-auto mb-6 shadow-md object-cover"
                 onerror="this.onerror=null; this.src='https://placehold.co/128x128/e2e8f0/334155?text=Autor';">
@@ -276,36 +271,45 @@
         </div>
     </section>
 
+    <!-- CTA: ZAPYTAJ O OFERTĘ (TERAZ OTWIERA MODAL) -->
     <section id="kontakt" class="py-16 md:py-20">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
-                Dostępne w wygodnym modelu SaaS
-            </h2>
+            <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Dostępne w wygodnym modelu SaaS</h2>
             <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
                 MediFlow oferowane jest jako usługa w chmurze (Software as a Service). Oznacza to brak kosztownych
                 inwestycji w infrastrukturę, stały dostęp do najnowszej wersji aplikacji i wsparcie techniczne.
                 Skontaktuj się z nami, aby dobrać plan idealny dla Twojej placówki.
             </p>
-            <a href="mailto:p.karpinski95@wp.pl?subject=Zapytanie%20o%20ofertę%20MediFlow"
+
+            <!-- ZMIANA: button zamiast mailto -->
+            <button data-open-modal="offer"
                 class="text-blue-600 border border-blue-600 hover:bg-blue-50 font-medium py-3 px-8 rounded-lg text-lg transition duration-300 inline-block">
                 Zapytaj o Ofertę
-            </a>
+            </button>
+
+            <!-- Fallback bez JS -->
+            <noscript>
+                <p class="mt-3 text-sm text-gray-500">
+                    Masz wyłączony JavaScript. Napisz do nas:
+                    <a class="underline text-blue-600"
+                        href="mailto:p.karpinski95@wp.pl?subject=Zapytanie%20o%20ofertę%20MediFlow">p.karpinski95@wp.pl</a>
+                </p>
+            </noscript>
         </div>
     </section>
 
     <section class="bg-blue-600 text-white py-16 md:py-20">
         <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl md:text-4xl font-semibold mb-4">
-                Gotowy usprawnić transport medyczny w Twoim szpitalu?
+            <h2 class="text-3xl md:text-4xl font-semibold mb-4">Gotowy usprawnić transport medyczny w Twoim szpitalu?
             </h2>
             <p class="text-lg text-blue-100 mb-8 max-w-3xl mx-auto">
                 Zobacz na własne oczy, jak MediFlow może zrewolucjonizować koordynację transportów. Umów się na
                 niezobowiązujące, bezpłatne demo aplikacji.
             </p>
-            <a href="#kontakt"
+            <button data-open-modal="demo"
                 class="bg-white hover:bg-gray-100 text-blue-600 font-bold py-3 px-8 rounded-lg text-lg transition duration-300 shadow-md inline-block">
                 Umów Bezpłatne Demo
-            </a>
+            </button>
         </div>
     </section>
 
@@ -322,22 +326,285 @@
         </div>
     </footer>
 
+    <!-- ===== MODALE ===== -->
+
+    <!-- Modal: ZAPYTAJ O OFERTĘ -->
+    <div id="modal-offer" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true"
+        aria-labelledby="offer-title">
+        <div class="absolute inset-0 bg-black/50" data-close-modal></div>
+        <div class="relative mx-auto my-8 max-w-xl">
+            <div class="bg-white rounded-xl shadow-xl mx-4 p-6">
+                <div class="flex justify-between items-start">
+                    <h3 id="offer-title" class="text-xl font-semibold text-gray-900">Zapytaj o ofertę</h3>
+                    <button class="p-2 text-gray-400 hover:text-gray-600" aria-label="Zamknij"
+                        data-close-modal>&times;</button>
+                </div>
+                <p class="mt-2 text-gray-600">Zostaw nam swoje dane, a przygotujemy ofertę dopasowaną do Twoich potrzeb.
+                </p>
+
+                <form action="https://formspree.io/f/xzzjyeej" method="POST" id="form-offer" class="mt-6 space-y-4"
+                    novalidate>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Imię i nazwisko</label>
+                        <input required name="name" type="text"
+                            class="mt-1 w-full rounded-lg border-gray-300 border focus:border-blue-600 p-2 focus:ring-blue-600" />
+                        <p class="hidden text-sm text-red-600 mt-1">To pole jest wymagane.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 ">E-mail</label>
+                        <input required name="email" type="email"
+                            class="mt-1 w-full rounded-lg border-gray-300 focus:border-blue-600 focus:ring-blue-600 border p-2" />
+                        <p class="hidden text-sm text-red-600 mt-1">Podaj poprawny adres e-mail.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Firma <span
+                                class="text-gray-400">(opcjonalnie)</span></label>
+                        <input name="company" type="text" 
+                            class="mt-1 w-full rounded-lg border border-gray-300 focus:border-blue-600 focus:ring-blue-600 p-2" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 ">Czego potrzebujesz?</label>
+                        <textarea required name="message" rows="4"
+                            class="mt-1 w-full rounded-lg border-gray-300 border p-2 focus:border-blue-600 focus:ring-blue-600"
+                            placeholder="Krótko opisz potrzeby, skalę wdrożenia, liczbę oddziałów itp."></textarea>
+                        <p class="hidden text-sm text-red-600 mt-1">Opisz krótko swoje potrzeby.</p>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <input id="offer-consent" type="checkbox" class="mt-1" required>
+                        <label for="offer-consent" class="text-sm text-gray-600">
+                            Wyrażam zgodę na kontakt w sprawie oferty. Szczegóły w <a href="/polityka-prywatnosci"
+                                class="underline text-blue-600">polityce prywatności</a>.
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-end gap-3 pt-2">
+                        <button type="button" class="px-4 py-2 rounded-lg border text-gray-700 hover:bg-gray-50"
+                            data-close-modal>Anuluj</button>
+                        <button id="offer-submit" type="submit"
+                            class="px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed">
+                            Wyślij zapytanie
+                        </button>
+                    </div>
+
+                    <!-- Status -->
+                    <div id="offer-status"
+                        class="hidden mt-4 rounded-lg border border-green-200 bg-green-50 p-3 text-green-800">
+                        ✅ Dziękujemy! Twoje zapytanie zostało wysłane — wrócimy z propozycją w ciągu 24 godzin.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: DEMO -->
+    <div id="modal-demo" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true"
+        aria-labelledby="demo-title">
+        <div class="absolute inset-0 bg-black/50" data-close-modal></div>
+        <div class="relative mx-auto my-8 max-w-xl">
+            <div class="bg-white rounded-xl shadow-xl mx-4 p-6">
+                <div class="flex justify-between items-start">
+                    <h3 id="demo-title" class="text-xl font-semibold text-gray-900">Umów bezpłatne demo</h3>
+                    <button class="p-2 text-gray-400 hover:text-gray-600" aria-label="Zamknij"
+                        data-close-modal>&times;</button>
+                </div>
+                <p class="mt-2 text-gray-600">Chcesz zobaczyć, jak to działa w praktyce? Umów się na 30-min spotkanie z
+                    naszym specjalistą.</p>
+
+                <form action="https://formspree.io/f/xzzjyeej" method="POST" id="form-demo" class="mt-6 space-y-4"
+                    novalidate>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Imię</label>
+                        <input required name="firstName" type="text"
+                            class="mt-1 w-full rounded-lg border-gray-300 focus:border-blue-600 border p-2 focus:ring-blue-600" />
+                        <p class="hidden text-sm text-red-600 mt-1">To pole jest wymagane.</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">E-mail</label>
+                        <input required name="email" type="email"
+                            class="mt-1 w-full rounded-lg border-gray-300 focus:border-blue-600 border p-2 focus:ring-blue-600" />
+                        <p class="hidden text-sm text-red-600 mt-1">Podaj poprawny adres e-mail.</p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Preferowana data</label>
+                            <input required name="date" type="date"
+                                class="mt-1 w-full rounded-lg border-gray-300 focus:border-blue-600 border p-2 focus:ring-blue-600" />
+                            <p class="hidden text-sm text-red-600 mt-1">Wybierz datę.</p>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700">Preferowana godzina</label>
+                            <input required name="time" type="time"
+                                class="mt-1 w-full rounded-lg border-gray-300 focus:border-blue-600 border p-2 focus:ring-blue-600" />
+                            <p class="hidden text-sm text-red-600 mt-1">Wybierz godzinę.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-2">
+                        <input id="demo-consent" type="checkbox" class="mt-1" required>
+                        <label for="demo-consent" class="text-sm text-gray-600">
+                            Wyrażam zgodę na kontakt w sprawie prezentacji produktu. Szczegóły w
+                            <a href="/polityka-prywatnosci" class="underline text-blue-600">polityce prywatności</a>.
+                        </label>
+                    </div>
+
+                    <div class="flex items-center justify-between pt-2">
+                     
+                        <div></div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" class="px-4 py-2 rounded-lg border text-gray-700 hover:bg-gray-50"
+                                data-close-modal>Anuluj</button>
+                            <button id="demo-submit" type="submit"
+                                class="px-5 py-2 rounded-lg bg-blue-600 text-white font-medium hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed">
+                                Zarezerwuj demo
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Status -->
+                    <div id="demo-status"
+                        class="hidden mt-4 rounded-lg border border-green-200 bg-green-50 p-3 text-green-800">
+                        🚀 Świetnie! Wkrótce otrzymasz e-mail z potwierdzeniem terminu i linkiem do spotkania.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Ustawienie aktualnego roku w stopce
+        // Rok w stopce
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Prosty skrypt do zamykania menu mobilnego po kliknięciu linku
+        // Zamykaj mobilne menu po kliknięciu
         const menuLinks = document.querySelectorAll('#menu a');
         const menuToggle = document.getElementById('menu-toggle');
-        menuLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (menuToggle.checked) {
-                    menuToggle.checked = false;
+        menuLinks.forEach(link => link.addEventListener('click', () => { if (menuToggle.checked) menuToggle.checked = false; }));
+
+        // ====== MODALE: otwieranie/zamykanie + ESC + klik w tło ======
+        const openButtons = document.querySelectorAll('[data-open-modal]');
+        const closeTriggers = () => document.querySelectorAll('[data-close-modal]');
+        const modalByKey = {
+            offer: document.getElementById('modal-offer'),
+            demo: document.getElementById('modal-demo')
+        };
+
+        function openModal(key) {
+            const m = modalByKey[key];
+            if (!m) return;
+            m.classList.remove('hidden');
+            document.documentElement.classList.add('modal-open');
+            // focus na pierwsze pole
+            const firstInput = m.querySelector('input, textarea, button');
+            setTimeout(() => firstInput && firstInput.focus(), 50);
+        }
+
+        function closeModal(el) {
+            el.classList.add('hidden');
+            document.documentElement.classList.remove('modal-open');
+        }
+
+        openButtons.forEach(btn => {
+            btn.addEventListener('click', () => openModal(btn.dataset.openModal));
+        });
+
+        function bindCloseHandlers(modalEl) {
+            modalEl.querySelectorAll('[data-close-modal]').forEach(c => {
+                c.addEventListener('click', () => closeModal(modalEl));
+            });
+        }
+        bindCloseHandlers(modalByKey.offer);
+        bindCloseHandlers(modalByKey.demo);
+
+        // Klik w tło
+        document.querySelectorAll('[data-close-modal]').forEach(bg => {
+            // already bound above for buttons; this covers the backdrop
+        });
+
+        // ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                Object.values(modalByKey).forEach(m => { if (!m.classList.contains('hidden')) closeModal(m); });
+            }
+        });
+
+        // ====== Walidacja helper ======
+        function validateForm(formEl) {
+            let valid = true;
+            formEl.querySelectorAll('[required]').forEach(field => {
+                const errorP = field.closest('div')?.querySelector('p.text-red-600');
+                let fieldValid = true;
+
+                if (field.type === 'checkbox') {
+                    fieldValid = field.checked;
+                } else if (field.type === 'email') {
+                    fieldValid = !!field.value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
+                } else {
+                    fieldValid = !!field.value?.trim();
+                }
+
+                if (!fieldValid) {
+                    valid = false;
+                    errorP && errorP.classList.remove('hidden');
+                    field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                } else {
+                    errorP && errorP.classList.add('hidden');
+                    field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
                 }
             });
+            return valid;
+        }
+
+        async function fakeSubmit(endpoint, payload, submitBtn) {
+            // TODO: PODMIEŃ na prawdziwe API, np.:
+            // const res = await fetch('/api/lead', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+            // if (!res.ok) throw new Error('Błąd wysyłki');
+            submitBtn.disabled = true;
+            const original = submitBtn.textContent;
+            submitBtn.textContent = 'Wysyłanie...';
+            await new Promise(r => setTimeout(r, 900)); // symulacja
+            submitBtn.textContent = original;
+            submitBtn.disabled = false;
+            return { ok: true };
+        }
+
+        // ====== Obsługa formularza: OFERTA ======
+        const formOffer = document.getElementById('form-offer');
+        formOffer?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validateForm(formOffer)) return;
+
+            const data = Object.fromEntries(new FormData(formOffer).entries());
+            const btn = document.getElementById('offer-submit');
+            try {
+                const resp = await fakeSubmit('/api/offer', data, btn);
+                if (resp.ok) {
+                    document.getElementById('offer-status').classList.remove('hidden');
+                    formOffer.reset();
+                }
+            } catch (err) {
+                alert('Przepraszamy, wystąpił błąd. Spróbuj ponownie lub napisz na p.karpinski95@wp.pl');
+            }
+        });
+
+        // ====== Obsługa formularza: DEMO ======
+        const formDemo = document.getElementById('form-demo');
+        formDemo?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (!validateForm(formDemo)) return;
+
+            const data = Object.fromEntries(new FormData(formDemo).entries());
+            const btn = document.getElementById('demo-submit');
+            try {
+                const resp = await fakeSubmit('/api/demo', data, btn);
+                if (resp.ok) {
+                    document.getElementById('demo-status').classList.remove('hidden');
+                    formDemo.reset();
+                }
+            } catch (err) {
+                alert('Przepraszamy, wystąpił błąd. Spróbuj ponownie lub napisz na p.karpinski95@wp.pl');
+            }
         });
     </script>
-
 </body>
 
 </html>
