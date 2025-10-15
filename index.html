@@ -16,7 +16,11 @@
     #menu-toggle:checked + #menu { display: block; }
     .modal-open { overflow: hidden; }
     /* widoczny czerwony obrys dla checkboxa przy błędzie */
-    .outline-error { outline: 2px solid #ef4444; outline-offset: 2px; }
+    /* Zmieniono na border-red-500 dla spójności z polami tekstowymi */
+    .checkbox-error { 
+        border: 2px solid #ef4444; 
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5); 
+    }
   </style>
   <script>
     tailwind.config = { theme: { extend: { colors: {} } } }
@@ -25,7 +29,6 @@
 
 <body class="bg-white text-gray-800 antialiased">
 
-  <!-- NAV -->
   <nav class="bg-white shadow-sm sticky top-0 z-50">
     <div class="container mx-auto px-6 py-3 flex justify-between items-center">
       <a href="#" class="flex items-center">
@@ -69,7 +72,6 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <header id="demo" class="bg-gray-50 py-16 md:py-24">
     <div class="container mx-auto px-6 text-center">
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
@@ -91,7 +93,6 @@
     </div>
   </header>
 
-  <!-- PROBLEMY / FUNKCJE / KORZYŚCI / O AUTORZE (bez zmian w treści) -->
   <section class="py-16 md:py-20">
     <div class="container mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">
@@ -157,7 +158,6 @@
       <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 text-center mb-12">
         Dlaczego MediFlow to najlepszy wybór dla Twojego szpitala?
       </h2>
-      <!-- ... (treści korzyści bez zmian) ... -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="flex items-start space-x-4">
           <div class="flex-shrink-0 mt-1">
@@ -252,7 +252,6 @@
     </div>
   </section>
 
-  <!-- CTA: ZAPYTAJ O OFERTĘ -->
   <section id="kontakt" class="py-16 md:py-20">
     <div class="container mx-auto px-6 text-center">
       <h2 class="text-3xl md:text-4xl font-semibold text-gray-900 mb-4">Dostępne w wygodnym modelu SaaS</h2>
@@ -305,9 +304,6 @@
     </div>
   </footer>
 
-  <!-- ===== MODALE ===== -->
-
-  <!-- Modal: ZAPYTAJ O OFERTĘ -->
   <div id="modal-offer" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true"
     aria-labelledby="offer-title">
     <div class="absolute inset-0 bg-black/50" data-close-modal></div>
@@ -376,7 +372,6 @@
     </div>
   </div>
 
-  <!-- Modal: DEMO -->
   <div id="modal-demo" class="fixed inset-0 z-[60] hidden" role="dialog" aria-modal="true"
     aria-labelledby="demo-title">
     <div class="absolute inset-0 bg-black/50" data-close-modal></div>
@@ -485,38 +480,54 @@
       if (e.key === 'Escape') Object.values(modalByKey).forEach(m => { if (!m.classList.contains('hidden')) closeModal(m); });
     });
 
-    // ====== Walidacja helper ======
+    // ====== Walidacja helper - POPRAWIONA ======
     function validateForm(formEl) {
       let valid = true;
       formEl.querySelectorAll('[required]').forEach(field => {
-        const container = field.closest('div');
-        const errorP = container?.querySelector('p.text-red-600');
+        
+        let errorContainer = field.closest('div'); 
+        // UWAGA: Dla checkboxa potrzebujemy cofnąć się do rodzica .flex-col, 
+        // który zawiera element <p> z komunikatem błędu.
+        if (field.type === 'checkbox') {
+            errorContainer = field.closest('.flex-col'); 
+        }
+
+        const errorP = errorContainer?.querySelector('p.text-red-600');
         let fieldValid = true;
 
+        // Resetowanie stylów błędu
+        field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+        if (field.type === 'checkbox') {
+            field.classList.remove('checkbox-error'); 
+        }
+        if (errorP) errorP.classList.add('hidden');
+        
+        // Logika Walidacji
         if (field.type === 'checkbox') {
           fieldValid = field.checked;
-          // checkbox – pokaż czerwony obrys
-          if (!fieldValid) { field.classList.add('outline-error'); }
-          else { field.classList.remove('outline-error'); }
+          if (!fieldValid) { 
+              field.classList.add('checkbox-error'); // Nowa klasa CSS dla checkboxa
+          }
         } else if (field.type === 'email') {
           fieldValid = !!field.value && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value);
         } else {
           fieldValid = !!field.value?.trim();
         }
 
+        // Zastosowanie stylów błędu
         if (!fieldValid) {
           valid = false;
           if (errorP) errorP.classList.remove('hidden');
-          field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-        } else {
-          if (errorP) errorP.classList.add('hidden');
-          field.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
-        }
+          if (field.type !== 'checkbox') { // Dla inputów tekstowych
+            field.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+          }
+        } 
       });
       return valid;
     }
 
-    // ====== Wysyłka do Formspree przez fetch ======
+
+    // ====== Wysyłka do Formspree przez fetch - POPRAWIONA OBSŁUGA BŁĘDÓW ======
     async function sendToFormspree(formEl, submitBtn) {
       submitBtn.disabled = true;
       const original = submitBtn.textContent;
@@ -525,49 +536,67 @@
       try {
         const res = await fetch(formEl.action, {
           method: 'POST',
-          headers: { 'Accept': 'application/json' },
+          // To jest kluczowe, by Formspree działało jako AJAX i zwracało JSON zamiast przekierowywać
+          headers: { 'Accept': 'application/json' }, 
           body: new FormData(formEl)
         });
-        if (!res.ok) throw new Error('Formspree error');
-        return { ok: true };
+        
+        // Formspree zwraca res.ok=true i JSON z polem { ok: true } po sukcesie
+        if (res.ok) {
+            const data = await res.json();
+            if (data.ok) return { ok: true };
+        }
+        
+        // Jeśli fetch się powiedzie, ale Formspree zwróci błąd w treści (np. walidacji po stronie serwera)
+        throw new Error('Formspree server error');
+
+      } catch (e) {
+        console.error("Błąd wysyłki Formspree:", e);
+        return { ok: false };
       } finally {
         submitBtn.textContent = original;
         submitBtn.disabled = false;
       }
     }
 
-    // ====== OFERTA ======
+    // ====== OFERTA - POPRAWIONA OBSŁUGA STATUSU ======
     const formOffer = document.getElementById('form-offer');
     formOffer?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      document.getElementById('offer-status').classList.add('hidden'); // Ukryj poprzedni status
+      
       if (!validateForm(formOffer)) return;
 
       const btn = document.getElementById('offer-submit');
-      try {
-        const resp = await sendToFormspree(formOffer, btn);
-        if (resp.ok) {
-          document.getElementById('offer-status').classList.remove('hidden');
-          formOffer.reset();
-        }
-      } catch (err) {
+      const resp = await sendToFormspree(formOffer, btn);
+      
+      if (resp.ok) {
+        document.getElementById('offer-status').classList.remove('hidden');
+        formOffer.reset();
+        // Opcjonalnie: automatyczne zamknięcie modala
+        // setTimeout(() => closeModal(formOffer.closest('.fixed')), 5000); 
+      } else {
         alert('Przepraszamy, wystąpił błąd. Spróbuj ponownie lub napisz na p.karpinski95@wp.pl');
       }
     });
 
-    // ====== DEMO ======
+    // ====== DEMO - POPRAWIONA OBSŁUGA STATUSU ======
     const formDemo = document.getElementById('form-demo');
     formDemo?.addEventListener('submit', async (e) => {
       e.preventDefault();
+      document.getElementById('demo-status').classList.add('hidden'); // Ukryj poprzedni status
+      
       if (!validateForm(formDemo)) return;
 
       const btn = document.getElementById('demo-submit');
-      try {
-        const resp = await sendToFormspree(formDemo, btn);
-        if (resp.ok) {
-          document.getElementById('demo-status').classList.remove('hidden');
-          formDemo.reset();
-        }
-      } catch (err) {
+      const resp = await sendToFormspree(formDemo, btn);
+      
+      if (resp.ok) {
+        document.getElementById('demo-status').classList.remove('hidden');
+        formDemo.reset();
+        // Opcjonalnie: automatyczne zamknięcie modala
+        // setTimeout(() => closeModal(formDemo.closest('.fixed')), 5000); 
+      } else {
         alert('Przepraszamy, wystąpił błąd. Spróbuj ponownie lub napisz na p.karpinski95@wp.pl');
       }
     });
